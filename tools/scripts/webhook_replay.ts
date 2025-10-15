@@ -8,9 +8,7 @@ const db = getDb();
 async function main() {
   const [webhookId, targetUrl] = process.argv.slice(2);
   if (!webhookId) {
-    throw new Error(
-      'Usage: node .yarn/releases/yarn-4.4.1.cjs run -w tools/scripts webhook:replay <webhook-id> [target-url]'
-    );
+    throw new Error('Usage: npm run -w tools/scripts webhook:replay <webhook-id> [target-url]');
   }
 
   const [record] = await db

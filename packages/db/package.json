@@ -19,8 +19,5 @@
   "devDependencies": {
     "tsx": "4.7.1",
     "typescript": "5.4.5"
-  },
-  "engines": {
-    "node": ">=20 <23"
   }
 }

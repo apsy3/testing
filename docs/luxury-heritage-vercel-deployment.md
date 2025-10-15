@@ -26,7 +26,7 @@
 - Vercel account with GitHub/GitLab integration.
 - Supabase project (URL, anon key, service role key, database connection string).
 - Shopify store with Storefront token and private app for Admin webhooks.
-- Local environment: Node.js 20 (see `.nvmrc`/`.node-version`), npm, Supabase CLI (optional), Drizzle CLI (optional).
+- Local environment: Node.js 18+, pnpm, Supabase CLI (optional), Drizzle CLI (optional).
 
 ## 4. Environment Variables (`.env.local` / Vercel)
 ```
@@ -46,7 +46,6 @@ SUPABASE_URL=***
 SUPABASE_ANON_KEY=***
 SUPABASE_SERVICE_ROLE_KEY=***
 DATABASE_URL=postgresql://user:password@host:5432/dbname
-CUSTOMER_HASH_SALT=***
 
 # Analytics (optional, behind consent)
 POSTHOG_KEY=
@@ -64,21 +63,77 @@ GA_MEASUREMENT_ID=
 - Verify HMAC on raw body, enforce idempotency via `X-Shopify-Webhook-Id`.
 - Example implementation:
 
-The repository ships with a production-ready handler under `apps/web/app/api/webhooks/shopify/route.ts` that performs HMAC
-verification on the raw payload, enforces idempotency via the `processed_webhooks` table, and synchronizes products and orders
-using Drizzle transactions.
+```ts
+// apps/web/app/api/webhooks/shopify/route.ts
+import { headers } from "next/headers";
+import { NextResponse } from "next/server";
+import crypto from "crypto";
+
+export const runtime = "nodejs"; // Node crypto required
+
+function safeEqual(a: Buffer, b: Buffer) {
+  if (a.length !== b.length) return false;
+  return crypto.timingSafeEqual(a, b);
+}
+
+export async function POST(req: Request) {
+  const h = headers();
+  const hmacHeader = h.get("x-shopify-hmac-sha256") || "";
+  const topic = h.get("x-shopify-topic") || "unknown";
+  const webhookId = h.get("x-shopify-webhook-id") || "";
+  const raw = await req.text();
+
+  const secret = process.env.SHOPIFY_WEBHOOK_SHARED_SECRET || "";
+  const digest = crypto.createHmac("sha256", secret).update(raw, "utf8").digest("base64");
+  const ok = safeEqual(Buffer.from(digest, "base64"), Buffer.from(hmacHeader || "", "base64"));
+  if (!ok) return new NextResponse("HMAC failed", { status: 401 });
+  if (!webhookId) return new NextResponse("Missing webhook id", { status: 400 });
+
+  // Idempotency (pseudo): if processed_webhooks contains webhookId -> return 200
+  // Upsert product/order by topic; then insert processed_webhooks row
+
+  return new NextResponse("OK", { status: 200 });
+}
+```
 
 ## 7. Middleware Security Headers (CSP/HSTS)
 - Apply conservative security headers using middleware; adjust CSP for Shopify and asset domains.
 - Enable HSTS only in production.
 
-Security middleware ships preconfigured to allow Shopify and Supabase origins while enforcing CSP, HSTS (production-only),
-and baseline hardening headers.
+```ts
+// apps/web/middleware.ts
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+export function middleware(req: NextRequest) {
+  const res = NextResponse.next();
+  const isProd = process.env.NODE_ENV === "production";
+
+  res.headers.set("X-Content-Type-Options", "nosniff");
+  res.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.headers.set("Permissions-Policy", "geolocation=()");
+
+  const csp = [
+    "default-src 'self'",
+    "img-src 'self' data: https:",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:",
+    "style-src 'self' 'unsafe-inline' https:",
+    "connect-src 'self' https:",
+    "font-src 'self' https: data:",
+    "frame-ancestors 'none'"
+  ].join("; ");
+  res.headers.set("Content-Security-Policy", csp);
+
+  if (isProd) res.headers.set("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload");
+
+  return res;
+}
+```
 
 ## 8. Local Development
 1. Copy `.env.example` to `.env.local` and populate secrets.
 2. Run Drizzle migrations to create tables; apply RLS SQL in Supabase dashboard.
-3. Start dev server: `node .yarn/releases/yarn-4.4.1.cjs run dev`.
+3. Start dev server: `pnpm -C apps/web dev`.
 4. (Optional) Use a secure tunnel for Shopify webhook testing.
 
 ## 9. Vercel Deployment Steps (Website Only)
@@ -91,7 +146,7 @@ and baseline hardening headers.
 ### Automated Preview Deployments for Testing
 - Use `tools/scripts/run-vercel-preview.sh` to build and deploy the website to a temporary preview URL for QA or stakeholder sign-off.
 - Defaults to the Next.js app living in `apps/web`; override with `APP_DIR=/path/to/app` if the layout differs.
-- Prerequisites: logged-in Vercel CLI plus `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID` environment variables (obtain from Vercel dashboard or `vercel link`). Optional variables: `VERCEL_SCOPE`/`VERCEL_TEAM` for team slug, `ENVIRONMENT` (defaults to `preview`), `ENV_FILE` for a specific env file, and `TEST_ALIAS` to update a stable alias.
+- Prerequisites: logged-in Vercel CLI, `pnpm`, and the `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID` environment variables (obtain from Vercel dashboard or `vercel link`). Optional variables: `VERCEL_SCOPE`/`VERCEL_TEAM` for team slug, `ENVIRONMENT` (defaults to `preview`), `ENV_FILE` for a specific env file, and `TEST_ALIAS` to update a stable alias.
 - Example run from repo root:
 
 ```bash

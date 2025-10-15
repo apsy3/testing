@@ -1,10 +1,4 @@
 {
-  "version": 2,
-  "framework": "nextjs",
-  "installCommand": "node .yarn/releases/yarn-4.4.1.cjs install --immutable --immutable-cache",
-  "buildCommand": "node .yarn/releases/yarn-4.4.1.cjs run build",
-  "cacheDirectories": [
-    ".yarn/cache",
-    "node_modules"
-  ]
+  "installCommand": "npm ci",
+  "buildCommand": "npm run build"
 }

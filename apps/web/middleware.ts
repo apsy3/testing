@@ -11,11 +11,11 @@ export function middleware(req: NextRequest) {
 
   const csp = [
     "default-src 'self'",
-    "img-src 'self' data: https://cdn.shopify.com https://images.ctfassets.net https://picsum.photos",
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.shopify.com https://vercel.live",
-    "style-src 'self' 'unsafe-inline' https://cdn.shopify.com",
-    "connect-src 'self' https://cdn.shopify.com https://vercel.live https://supabase.co https://*.supabase.co",
-    "font-src 'self' https://cdn.shopify.com data:",
+    "img-src 'self' data: https:",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:",
+    "style-src 'self' 'unsafe-inline' https:",
+    "connect-src 'self' https:",
+    "font-src 'self' https: data:",
     "frame-ancestors 'none'",
   ].join("; ");
   res.headers.set("Content-Security-Policy", csp);
