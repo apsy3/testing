@@ -1,0 +1,13 @@
+{
+  "name": "luxury-heritage",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@8.15.4",
+  "scripts": {
+    "dev": "pnpm --filter @luxury-heritage/web dev",
+    "build": "pnpm --filter @luxury-heritage/web build",
+    "start": "pnpm --filter @luxury-heritage/web start",
+    "lint": "pnpm --filter @luxury-heritage/web lint",
+    "typecheck": "pnpm --filter @luxury-heritage/web typecheck"
+  }
+}

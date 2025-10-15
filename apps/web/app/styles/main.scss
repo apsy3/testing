@@ -1,0 +1,50 @@
+@use "./tokens" as *;
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $font-sans;
+  background: $surface;
+  color: $text-primary;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+main {
+  min-height: 100vh;
+}
+
+.page-shell {
+  margin: 0 auto;
+  max-width: $max-width;
+  padding: $spacing-6 $spacing-4;
+  line-height: 1.7;
+}
+
+.page-shell h1,
+.page-shell h2,
+.page-shell h3 {
+  font-family: $font-serif;
+  margin-bottom: $spacing-3;
+}
+
+.page-shell p {
+  margin-bottom: $spacing-3;
+  color: $text-muted;
+}
