@@ -1,0 +1,74 @@
+@use "./tokens" as *;
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(14, 14, 14, 0.92), rgba(14, 14, 14, 0.8));
+  color: white;
+  padding: $spacing-6 $spacing-4;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  padding: $spacing-6;
+  max-width: 440px;
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+}
+
+.panel h1 {
+  font-family: $font-serif;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.panel p {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.form input {
+  padding: $spacing-2 $spacing-3;
+  border-radius: 999px;
+  border: none;
+}
+
+.form button {
+  border: none;
+  border-radius: 999px;
+  padding: $spacing-2 $spacing-4;
+  background: $brand-accent;
+  color: $brand-primary;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.form button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.message {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.82);
+}

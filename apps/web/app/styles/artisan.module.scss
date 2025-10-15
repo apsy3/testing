@@ -1,0 +1,107 @@
+@use "./tokens" as *;
+
+.page {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: rgba(14, 14, 14, 0.96);
+  color: white;
+  padding: $spacing-5 $spacing-4;
+}
+
+.sidebar h2 {
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: $spacing-4 0 0;
+  display: grid;
+  gap: $spacing-2;
+}
+
+.sidebar a {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.active a {
+  color: $brand-accent;
+  font-weight: 600;
+}
+
+.content {
+  padding: $spacing-6 $spacing-5;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.content header h1 {
+  font-family: $font-serif;
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  margin: 0;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: $spacing-3;
+}
+
+.metrics article {
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 18px;
+  padding: $spacing-4;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+.metrics h3 {
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: $text-muted;
+}
+
+.metrics span {
+  color: $text-muted;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 18px;
+  padding: $spacing-4;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+td,
+th {
+  padding: $spacing-2;
+  text-align: left;
+}
+
+@media (max-width: 960px) {
+  .page {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+}
