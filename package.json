@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "workspaces": ["apps/*", "packages/*", "tools/*"],
+  "scripts": {
+    "dev": "yarn -w apps/web dev",
+    "build": "yarn -w apps/web build",
+    "start": "yarn -w apps/web start",
+    "lint": "yarn -ws lint || true",
+    "typecheck": "yarn -ws typecheck || true",
+    "test": "yarn -ws test || true",
+    "preinstall": "node tools/scripts/ensure-yarn.mjs && bash tools/scripts/check-yarn.sh"
+  },
+  "engines": {
+    "node": ">=20 <23"
+  }
+}

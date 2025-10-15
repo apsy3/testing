@@ -1,0 +1,23 @@
+name: CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Yarn offline install
+        run: node .yarn/releases/yarn-4.4.1.cjs install --immutable --immutable-cache
+      - name: Typecheck
+        run: yarn -ws typecheck
+      - name: Lint
+        run: yarn -ws lint
+      - name: Test
+        run: yarn -ws test
+      - name: Build
+        run: yarn -w apps/web build

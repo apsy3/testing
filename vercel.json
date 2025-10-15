@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "framework": "nextjs",
+  "installCommand": "node tools/scripts/ensure-yarn.mjs && bash tools/scripts/check-yarn.sh && node .yarn/releases/yarn-4.4.1.cjs install --immutable --immutable-cache",
+  "buildCommand": "node .yarn/releases/yarn-4.4.1.cjs run build",
+  "cacheDirectories": [
+    ".yarn/cache",
+    "node_modules"
+  ]
+}
