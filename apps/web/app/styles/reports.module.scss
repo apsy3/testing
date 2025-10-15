@@ -1,0 +1,78 @@
+@use "./tokens" as *;
+
+.page {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: $spacing-6 $spacing-4;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-5;
+}
+
+.header h1 {
+  font-family: $font-serif;
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  margin: 0;
+}
+
+.grid {
+  display: grid;
+  gap: $spacing-4;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.grid article {
+  background: rgba(255, 255, 255, 0.88);
+  border-radius: 18px;
+  padding: $spacing-4;
+  box-shadow: 0 28px 44px -38px rgba(0, 0, 0, 0.4);
+}
+
+.grid h2 {
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $text-muted;
+}
+
+dl {
+  margin: 0;
+  display: grid;
+  gap: $spacing-2;
+}
+
+dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: $spacing-2;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 18px;
+  padding: $spacing-4;
+  overflow: auto;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+td,
+th {
+  text-align: left;
+  padding: $spacing-2;
+}
+
+tbody tr:nth-of-type(even) {
+  background: rgba(0, 0, 0, 0.02);
+}
