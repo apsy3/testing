@@ -5,10 +5,10 @@ This repository contains the Luxury Heritage website MVP built with Next.js 14
 
 ## Getting started
 
-1. Install dependencies with npm (Node 20 recommended via `.nvmrc` / `.node-version`):
+1. Install dependencies with [pnpm](https://pnpm.io):
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 2. Copy `.env.example` to `.env.local` and populate the required Shopify and
@@ -16,31 +16,10 @@ This repository contains the Luxury Heritage website MVP built with Next.js 14
 3. Run the local development server:
 
    ```bash
-   npm run dev
+   pnpm dev
    ```
 
 The storefront is available at http://localhost:3000.
-
-## Tooling
-
-- Generate and run database migrations with Drizzle Kit:
-
-  ```bash
-  npm run -w packages/db drizzle:generate
-  npm run -w packages/db drizzle:migrate
-  ```
-
-- Seed local data for demos and dashboards:
-
-  ```bash
-  npm run -w tools/scripts seed
-  ```
-
-- Replay a stored Shopify webhook payload (requires `processed_webhooks` data):
-
-  ```bash
-  npm run -w tools/scripts webhook:replay <webhook-id>
-  ```
 
 ## Documentation
 

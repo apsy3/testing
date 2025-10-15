@@ -2,7 +2,12 @@
 set -euo pipefail
 
 if ! command -v vercel >/dev/null 2>&1; then
-  echo "Vercel CLI not found. Install it with 'npx vercel@latest login' or 'npm install -g vercel'." >&2
+  echo "Vercel CLI not found. Install it with 'pnpm dlx vercel@latest login' or 'npm install -g vercel'." >&2
+  exit 1
+fi
+
+if ! command -v pnpm >/dev/null 2>&1; then
+  echo "pnpm is required. Install it from https://pnpm.io/installation." >&2
   exit 1
 fi
 
@@ -34,13 +39,18 @@ if [ -n "$ENV_FILE" ] && [ ! -f "$ENV_FILE" ]; then
   echo "Environment file '$ENV_FILE' not found. The deploy will use variables from Vercel unless you provide one." >&2
 fi
 
-if [ -f "$ROOT_DIR/package-lock.json" ]; then
-  npm ci
-else
-  npm install
+PNPM_LOCK_FLAGS=()
+if [ -f "$ROOT_DIR/pnpm-lock.yaml" ] || [ -f "$APP_DIR/pnpm-lock.yaml" ]; then
+  PNPM_LOCK_FLAGS+=(--frozen-lockfile)
 fi
 
-npm run -w apps/web build
+if [ -f "$ROOT_DIR/pnpm-workspace.yaml" ]; then
+  pnpm install "${PNPM_LOCK_FLAGS[@]}"
+else
+  pnpm --dir "$APP_DIR" install "${PNPM_LOCK_FLAGS[@]}"
+fi
+
+pnpm --dir "$APP_DIR" build
 
 VERCEL_BASE_ARGS=(--cwd "$APP_DIR" --token "$VERCEL_TOKEN")
 VERCEL_SCOPE=${VERCEL_SCOPE:-${VERCEL_TEAM:-}}

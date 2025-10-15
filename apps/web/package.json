@@ -10,7 +10,6 @@
     "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@luxury-heritage/db": "file:../../packages/db",
     "@supabase/supabase-js": "2.45.0",
     "drizzle-orm": "0.32.2",
     "next": "14.2.3",
