@@ -1,0 +1,76 @@
+@use "./tokens" as *;
+
+.page {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(320px, 480px);
+  gap: $spacing-6;
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: $spacing-6 $spacing-4;
+}
+
+.media {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.08);
+  min-height: 520px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+}
+
+.breadcrumb {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: $text-muted;
+}
+
+.breadcrumb a {
+  color: inherit;
+}
+
+.details h1 {
+  font-family: $font-serif;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  margin: 0;
+}
+
+.price {
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.description {
+  line-height: 1.7;
+  color: $text-muted;
+}
+
+.actions {
+  margin-top: $spacing-4;
+}
+
+.buy {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  background: $brand-accent;
+  color: $brand-primary;
+  padding: $spacing-2 $spacing-4;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+@media (max-width: 960px) {
+  .page {
+    grid-template-columns: 1fr;
+  }
+
+  .media {
+    min-height: 360px;
+  }
+}
