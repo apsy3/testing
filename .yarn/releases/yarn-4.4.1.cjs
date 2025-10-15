@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+/**
+ * Placeholder for the Yarn 4.4.1 standalone build.
+ *
+ * The execution environment that generated this commit does not permit
+ * downloading external binaries, so this file intentionally exits with an
+ * instructional message. Replace its contents with the official
+ * `yarn-4.4.1.cjs` from the Yarn release archive before running any Yarn
+ * commands. See `docs/offline-setup.md` for step-by-step guidance on
+ * obtaining the vendored binary and populating the offline cache.
+ */
+console.error(
+  "The vendored Yarn binary is not present. Please download 'yarn-4.4.1.cjs' " +
+    "from the Yarn release archive and overwrite this file. Refer to docs/offline-setup.md."
+);
+process.exit(1);
