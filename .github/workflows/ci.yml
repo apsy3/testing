@@ -1,23 +1,45 @@
 name: CI
+
 on:
   push:
-    branches: [ main ]
+    branches: ["main"]
   pull_request:
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Yarn offline install
-        run: node .yarn/releases/yarn-4.4.1.cjs install --immutable --immutable-cache
-      - name: Typecheck
-        run: yarn -ws typecheck
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
       - name: Lint
-        run: yarn -ws lint
-      - name: Test
-        run: yarn -ws test
+        run: npm run lint
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Tests
+        run: npm run test
+
       - name: Build
-        run: yarn -w apps/web build
+        run: npm run build
+
+      - name: Run Drizzle migrations (main only)
+        if: github.ref == 'refs/heads/main'
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          if [ -n "$DATABASE_URL" ]; then
+            npm run -w packages/db drizzle:migrate
+          else
+            echo "DATABASE_URL secret not set; skipping migrations"
+          fi

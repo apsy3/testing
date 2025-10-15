@@ -1,27 +1,32 @@
-# Luxury Heritage Web (Yarn v4 Offline, Node 20)
+# Luxury Heritage Web
 
-## Quick start
-1. Node 20:
+This repository contains the Luxury Heritage website MVP built with Next.js 14
+(App Router) and configured for deployment on Vercel.
+
+## Getting started
+
+1. Install dependencies with [pnpm](https://pnpm.io):
+
    ```bash
-   nvm use 20
-   ```
-2. Install (offline-safe):
-   ```bash
-   node .yarn/releases/yarn-4.4.1.cjs install --immutable --immutable-cache
-   ```
-3. Env:
-   ```bash
-   cp .env.example .env.local
-   ```
-4. Dev:
-   ```bash
-   yarn -w apps/web dev
+   pnpm install
    ```
 
-## Maintainers: one-time cache warm-up
-If `.yarn/cache/` is empty (fresh repo), run once **on a machine with internet**:
-```bash
-node .yarn/releases/yarn-4.4.1.cjs install
-git add .yarn/cache
-git commit -m "chore: update yarn offline cache"
-```
+2. Copy `.env.example` to `.env.local` and populate the required Shopify and
+   Supabase credentials.
+3. Run the local development server:
+
+   ```bash
+   pnpm dev
+   ```
+
+The storefront is available at http://localhost:3000.
+
+## Documentation
+
+- [Luxury–Heritage MVP — Website-Only Deployment Guide (Vercel)](docs/luxury-heritage-vercel-deployment.md)
+
+## Scripts
+
+- [`tools/scripts/run-vercel-preview.sh`](tools/scripts/run-vercel-preview.sh):
+  Automates building and deploying the Next.js app to a Vercel preview for
+  end-to-end testing.

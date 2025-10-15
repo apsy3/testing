@@ -1,16 +1,13 @@
 {
+  "name": "luxury-heritage",
+  "version": "0.1.0",
   "private": true,
-  "workspaces": ["apps/*", "packages/*", "tools/*"],
+  "packageManager": "pnpm@8.15.4",
   "scripts": {
-    "dev": "yarn -w apps/web dev",
-    "build": "yarn -w apps/web build",
-    "start": "yarn -w apps/web start",
-    "lint": "yarn -ws lint || true",
-    "typecheck": "yarn -ws typecheck || true",
-    "test": "yarn -ws test || true",
-    "preinstall": "bash tools/scripts/check-yarn.sh"
-  },
-  "engines": {
-    "node": ">=20 <23"
+    "dev": "pnpm --filter @luxury-heritage/web dev",
+    "build": "pnpm --filter @luxury-heritage/web build",
+    "start": "pnpm --filter @luxury-heritage/web start",
+    "lint": "pnpm --filter @luxury-heritage/web lint",
+    "typecheck": "pnpm --filter @luxury-heritage/web typecheck"
   }
 }

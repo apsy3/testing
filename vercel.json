@@ -1,4 +1,4 @@
 {
-  "installCommand": "node .yarn/releases/yarn-4.4.1.cjs install --immutable --immutable-cache",
-  "buildCommand": "node .yarn/releases/yarn-4.4.1.cjs run build"
+  "installCommand": "npm ci",
+  "buildCommand": "npm run build"
 }
