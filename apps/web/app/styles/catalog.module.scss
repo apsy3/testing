@@ -1,0 +1,118 @@
+@use "sass:color";
+@use "./tokens" as *;
+
+.page {
+  padding: $spacing-6 $spacing-4;
+  max-width: $max-width;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: $spacing-5;
+}
+
+.filters {
+  display: grid;
+  gap: $spacing-3;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  align-items: end;
+  margin-top: $spacing-3;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-1;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.field input,
+.field select {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 999px;
+  padding: $spacing-2 $spacing-3;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.submit {
+  border: none;
+  border-radius: 999px;
+  padding: $spacing-2 $spacing-4;
+  background: $brand-accent;
+  color: $brand-primary;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 120ms ease;
+}
+
+.submit:hover {
+  transform: translateY(-1px);
+}
+
+.header h1 {
+  font-family: $font-serif;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  margin-bottom: $spacing-2;
+}
+
+.header p {
+  color: $text-muted;
+  max-width: 540px;
+}
+
+.grid {
+  display: grid;
+  gap: $spacing-4;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 42px -32px rgba(0, 0, 0, 0.45);
+}
+
+.imageWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.cardBody {
+  padding: $spacing-4;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+.cardBody h2 {
+  font-family: $font-serif;
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.cardBody a {
+  align-self: flex-start;
+  color: $brand-accent;
+  font-weight: 600;
+}
+
+.cardBody a:hover {
+  color: color.darken($brand-accent, 8%);
+}
+
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: $text-muted;
+  padding: $spacing-4;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+}

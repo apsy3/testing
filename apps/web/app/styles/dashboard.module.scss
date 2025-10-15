@@ -1,0 +1,83 @@
+@use "./tokens" as *;
+
+.page {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: $spacing-6 $spacing-4;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-5;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+}
+
+.header h1 {
+  font-family: $font-serif;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  margin: 0;
+}
+
+.link {
+  align-self: flex-start;
+  color: $brand-accent;
+  font-weight: 600;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: $spacing-3;
+}
+
+.metrics article {
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: 18px;
+  padding: $spacing-4;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+  box-shadow: 0 32px 60px -40px rgba(0, 0, 0, 0.35);
+}
+
+.metrics p {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: $text-muted;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 18px;
+  padding: $spacing-4;
+  box-shadow: 0 24px 40px -36px rgba(0, 0, 0, 0.4);
+}
+
+.panel h2 {
+  font-family: $font-serif;
+  margin-top: 0;
+}
+
+.panel ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: $spacing-2;
+}
+
+.panel li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding-bottom: $spacing-2;
+}
+
+.panel li:last-of-type {
+  border-bottom: none;
+}

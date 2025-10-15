@@ -1,0 +1,20 @@
+{
+  "name": "@luxury-heritage/scripts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "seed": "tsx ./seed.ts",
+    "webhook:replay": "tsx ./webhook_replay.ts",
+    "smoke": "tsx ./smoke.ts"
+  },
+  "dependencies": {
+    "@luxury-heritage/db": "file:../../packages/db",
+    "dotenv": "16.4.5",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "tsx": "4.7.1",
+    "typescript": "5.4.5"
+  }
+}

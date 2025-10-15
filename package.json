@@ -1,0 +1,17 @@
+{
+  "name": "luxury-heritage",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*", "tools/*"],
+  "scripts": {
+    "dev": "npm run -w apps/web dev",
+    "build": "npm run -w apps/web build",
+    "start": "npm run -w apps/web start",
+    "lint": "npm -ws run lint || true",
+    "typecheck": "npm -ws run typecheck || true",
+    "test": "npm -ws test || true"
+  },
+  "engines": {
+    "node": ">=20 <23"
+  }
+}
